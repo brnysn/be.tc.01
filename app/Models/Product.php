@@ -64,13 +64,13 @@ class Product extends Model
         return $this->stock_quantity >= $quantity;
     }
 
-    private function decreaseStockQuantity(int $quantity = 1)
+    public function decreaseStockQuantity(int $quantity = 1): void
     {
         $this->stock_quantity -= $quantity;
         $this->save();
     }
 
-    private function increaseStockQuantity(int $quantity = 1)
+    public function increaseStockQuantity(int $quantity = 1): void
     {
         $this->stock_quantity += $quantity;
         $this->save();

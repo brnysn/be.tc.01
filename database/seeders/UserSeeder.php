@@ -27,5 +27,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'role' => Roles::Customer->label(),
         ]);
+
+        User::factory()->count(30)->customer()->create();
     }
 }

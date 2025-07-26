@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,8 +41,10 @@ Route::middleware('auth:sanctum')->group(function () {
         });
     });
 
-    // Authenticated Customer routes
-    Route::middleware('customer')->group(function () {
-        // Customer routes
+    // Order routes for customers & admins. Permissions are handled in the OrderPolicy. Scope is handled in the Order model.
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/orders', 'index');
+        Route::post('/orders', 'store');
+        Route::get('/orders/{order}', 'show');
     });
 });

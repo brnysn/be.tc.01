@@ -22,14 +22,14 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(Roles $role = Roles::Customer): array
+    public function definition(): array
     {
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
-            'role' => $role->label(),
+            'role' => Roles::Customer->label(),
             'remember_token' => Str::random(10),
         ];
     }
@@ -41,6 +41,20 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => Roles::Admin->label(),
+        ]);
+    }
+
+    public function customer(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => Roles::Customer->label(),
         ]);
     }
 }

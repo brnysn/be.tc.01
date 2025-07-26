@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Roles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -21,6 +22,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property \Illuminate\Support\Carbon $email_verified_at
+ * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
  */
 class User extends Authenticatable
 {
@@ -70,9 +72,24 @@ class User extends Authenticatable
         ];
     }
 
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /**
      * Helpers
      */
+    public function scopeAdmin($query)
+    {
+        return $query->where('role', Roles::Admin);
+    }
+
+    public function scopeCustomer($query)
+    {
+        return $query->where('role', Roles::Customer);
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === Roles::Admin;
