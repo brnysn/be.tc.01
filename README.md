@@ -17,7 +17,7 @@ cd be
 
 2. Start the Docker containers:
 ```bash
-docker compose up --build -d
+docker compose up --build
 ```
 
 The application will automatically:

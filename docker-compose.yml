@@ -10,6 +10,8 @@ services:
     restart: unless-stopped
     volumes:
       - .:/var/www/html
+      # Prevent vendor directory from being overwritten by the local mount
+      - vendor_data:/var/www/html/vendor
     ports:
       - "8088:8080"
     depends_on:
@@ -71,3 +73,6 @@ volumes:
   mysql_data:
     # Use a named volume to persist MySQL data between container restarts
     name: mysql_data_brnysn
+  vendor_data:
+    # Use a named volume to persist vendor directory and prevent overwrite
+    name: vendor_data_brnysn
