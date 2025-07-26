@@ -14,4 +14,9 @@ enum Roles
             self::Customer => 'Customer',
         };
     }
+
+    public static function getAllLabels(): array
+    {
+        return array_map(fn ($role) => $role->label(), self::cases());
+    }
 }
