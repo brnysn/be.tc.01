@@ -56,4 +56,17 @@ class User extends Authenticatable
             'role' => Roles::class,
         ];
     }
+
+    /**
+     * Helpers
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === Roles::Admin;
+    }
+
+    public function isCustomer(): bool
+    {
+        return $this->role === Roles::Customer;
+    }
 }
